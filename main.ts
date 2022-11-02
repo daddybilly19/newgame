@@ -46,6 +46,72 @@ radio.onReceivedNumber(function (receivedNumber) {
             }
         }
     }
+    if (receivedNumber == 7) {
+        sprite = game.createSprite(Enemy.get(LedSpriteProperty.X), Enemy.get(LedSpriteProperty.Y))
+        sprite.set(LedSpriteProperty.Brightness, 100)
+        for (let index = 0; index < 4; index++) {
+            sprite.change(LedSpriteProperty.X, 1)
+            basic.pause(100)
+            if (sprite.isTouching(Player)) {
+                game.removeLife(1)
+            }
+            if (sprite.get(LedSpriteProperty.X) >= 4) {
+                sprite.delete()
+            }
+        }
+    }
+    if (receivedNumber == 8) {
+        sprite = game.createSprite(Enemy.get(LedSpriteProperty.X), Enemy.get(LedSpriteProperty.Y))
+        sprite.set(LedSpriteProperty.Brightness, 100)
+        for (let index = 0; index < 4; index++) {
+            sprite.change(LedSpriteProperty.Y, 1)
+            basic.pause(100)
+            if (sprite.isTouching(Player)) {
+                game.removeLife(1)
+            }
+            if (sprite.get(LedSpriteProperty.Y) >= 4) {
+                sprite.delete()
+            }
+        }
+    }
+})
+joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P14, joystickbit.ButtonType.down, function () {
+    radio.sendNumber(7)
+    Shoot = game.createSprite(Player.get(LedSpriteProperty.X), Player.get(LedSpriteProperty.Y))
+    Shoot.set(LedSpriteProperty.Brightness, 100)
+    for (let index = 0; index < 4; index++) {
+        Shoot.change(LedSpriteProperty.X, 1)
+        basic.pause(100)
+        if (Shoot.isTouching(Enemy)) {
+            game.addScore(1)
+        }
+        if (Shoot.get(LedSpriteProperty.X) >= 4) {
+            Shoot.delete()
+        }
+    }
+    basic.pause(1000)
+    if (game.score() == 4) {
+        game.gameOver()
+    }
+})
+joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P15, joystickbit.ButtonType.down, function () {
+    radio.sendNumber(8)
+    Shoot = game.createSprite(Player.get(LedSpriteProperty.X), Player.get(LedSpriteProperty.Y))
+    Shoot.set(LedSpriteProperty.Brightness, 100)
+    for (let index = 0; index < 4; index++) {
+        Shoot.change(LedSpriteProperty.Y, 1)
+        basic.pause(100)
+        if (Shoot.isTouching(Enemy)) {
+            game.addScore(1)
+        }
+        if (Shoot.get(LedSpriteProperty.Y) >= 4) {
+            Shoot.delete()
+        }
+    }
+    basic.pause(1000)
+    if (game.score() == 4) {
+        game.gameOver()
+    }
 })
 joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P13, joystickbit.ButtonType.down, function () {
     radio.sendNumber(4)
