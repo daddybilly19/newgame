@@ -90,9 +90,6 @@ joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P14, joystickbit.ButtonType
         }
     }
     basic.pause(1000)
-    if (game.score() == 4) {
-        game.gameOver()
-    }
 })
 joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P15, joystickbit.ButtonType.down, function () {
     radio.sendNumber(8)
@@ -109,9 +106,6 @@ joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P15, joystickbit.ButtonType
         }
     }
     basic.pause(1000)
-    if (game.score() == 4) {
-        game.gameOver()
-    }
 })
 joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P13, joystickbit.ButtonType.down, function () {
     radio.sendNumber(4)
@@ -128,9 +122,6 @@ joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P13, joystickbit.ButtonType
         }
     }
     basic.pause(1000)
-    if (game.score() == 4) {
-        game.gameOver()
-    }
 })
 joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P12, joystickbit.ButtonType.down, function () {
     radio.sendNumber(0)
@@ -147,9 +138,6 @@ joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P12, joystickbit.ButtonType
         }
     }
     basic.pause(1000)
-    if (game.score() == 4) {
-        game.gameOver()
-    }
 })
 input.onLogoEvent(TouchButtonEvent.Pressed, function () {
     radio.sendNumber(3)
@@ -187,4 +175,14 @@ basic.forever(function () {
         Player.change(LedSpriteProperty.Y, -1)
     }
     basic.pause(100)
+})
+basic.forever(function () {
+    if (game.isGameOver() && game.score() < 4) {
+        basic.showString("You lose")
+    }
+    if (game.score() == 4) {
+        game.gameOver()
+        basic.showString("You win")
+    }
+    basic.clearScreen()
 })
