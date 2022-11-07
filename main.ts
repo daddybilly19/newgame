@@ -77,6 +77,7 @@ radio.onReceivedNumber(function (receivedNumber) {
 })
 joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P14, joystickbit.ButtonType.down, function () {
     radio.sendNumber(8)
+    joystickbit.Vibration_Motor(100)
     Shoot = game.createSprite(Player.get(LedSpriteProperty.X), Player.get(LedSpriteProperty.Y))
     Shoot.set(LedSpriteProperty.Brightness, 100)
     for (let index = 0; index < 4; index++) {
@@ -89,10 +90,11 @@ joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P14, joystickbit.ButtonType
             Shoot.delete()
         }
     }
-    basic.pause(1000)
+    basic.pause(500)
 })
 joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P15, joystickbit.ButtonType.down, function () {
     radio.sendNumber(7)
+    joystickbit.Vibration_Motor(100)
     Shoot = game.createSprite(Player.get(LedSpriteProperty.X), Player.get(LedSpriteProperty.Y))
     Shoot.set(LedSpriteProperty.Brightness, 100)
     for (let index = 0; index < 4; index++) {
@@ -105,10 +107,11 @@ joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P15, joystickbit.ButtonType
             Shoot.delete()
         }
     }
-    basic.pause(1000)
+    basic.pause(500)
 })
 joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P13, joystickbit.ButtonType.down, function () {
     radio.sendNumber(4)
+    joystickbit.Vibration_Motor(100)
     Shoot = game.createSprite(Player.get(LedSpriteProperty.X), Player.get(LedSpriteProperty.Y))
     Shoot.set(LedSpriteProperty.Brightness, 100)
     for (let index = 0; index < 4; index++) {
@@ -121,10 +124,11 @@ joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P13, joystickbit.ButtonType
             Shoot.delete()
         }
     }
-    basic.pause(1000)
+    basic.pause(500)
 })
 joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P12, joystickbit.ButtonType.down, function () {
     radio.sendNumber(0)
+    joystickbit.Vibration_Motor(100)
     Shoot = game.createSprite(Player.get(LedSpriteProperty.X), Player.get(LedSpriteProperty.Y))
     Shoot.set(LedSpriteProperty.Brightness, 100)
     for (let index = 0; index < 4; index++) {
@@ -137,7 +141,7 @@ joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P12, joystickbit.ButtonType
             Shoot.delete()
         }
     }
-    basic.pause(1000)
+    basic.pause(500)
 })
 input.onLogoEvent(TouchButtonEvent.Pressed, function () {
     radio.sendNumber(3)
@@ -177,12 +181,17 @@ basic.forever(function () {
     basic.pause(100)
 })
 basic.forever(function () {
-    if (game.isGameOver() && game.score() < 4) {
-        basic.showString("You lose")
-    }
     if (game.score() == 4) {
         game.gameOver()
-        basic.showString("You win")
     }
-    basic.clearScreen()
+    if (game.isGameOver()) {
+        if (game.score() < 4) {
+            basic.showString("You lose")
+            basic.clearScreen()
+        }
+        if (game.score() == 4) {
+            basic.showString("You win")
+            basic.clearScreen()
+        }
+    }
 })
